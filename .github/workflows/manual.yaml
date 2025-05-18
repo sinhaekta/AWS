@@ -7,10 +7,10 @@ on:
         description: 'Branch to use for Terraform code'
         required: true
         default: 'main'
-        run_apply:
-          description: 'Do you want to run terraform apply? (true/false)'
-          required: true
-          default: 'false'
+      run_apply:
+        description: 'Do you want to run terraform apply? (true/false)'
+        required: true
+        default: 'false'
 
 jobs:
   terraform:
@@ -19,12 +19,12 @@ jobs:
 
     steps:
       - name: Checkout selected branch code
-        uses: actions/checkout@v1
+        uses: actions/checkout@v4
         with:
           ref: ${{ github.event.inputs.source_branch }}
 
       - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v1
+        uses: hashicorp/setup-terraform@v4
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
@@ -42,7 +42,6 @@ jobs:
       - name: Terraform Plan
         run: terraform -chdir=config plan
 
-      # Uncomment below if you want to apply changes too
       - name: Terraform Apply
         if: ${{ github.event.inputs.run_apply == 'true' }}
         run: terraform -chdir=config apply -auto-approve
