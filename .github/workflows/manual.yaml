@@ -7,6 +7,10 @@ on:
         description: 'Branch to use for Terraform code'
         required: true
         default: 'main'
+        run_apply:
+          description: 'Do you want to run terraform apply? (true/false)'
+          required: true
+          default: 'false'
 
 jobs:
   terraform:
@@ -40,4 +44,5 @@ jobs:
 
       # Uncomment below if you want to apply changes too
       - name: Terraform Apply
+        if: ${{ github.event.inputs.run_apply == 'true' }}
         run: terraform apply -auto-approve
