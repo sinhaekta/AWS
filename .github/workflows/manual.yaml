@@ -34,15 +34,15 @@ jobs:
           aws-region: ap-south-1
 
       - name: Terraform Init
-        run: terraform init
+        run: terraform init config/
 
       - name: Terraform Format Check
-        run: terraform fmt -check
+        run: terraform fmt -check config/
 
       - name: Terraform Plan
-        run: terraform plan
+        run: terraform plan config/
 
       # Uncomment below if you want to apply changes too
       - name: Terraform Apply
         if: ${{ github.event.inputs.run_apply == 'true' }}
-        run: terraform apply -auto-approve
+        run: terraform apply -auto-approve config/
