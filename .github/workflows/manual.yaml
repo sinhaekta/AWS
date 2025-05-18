@@ -1,7 +1,12 @@
 name: Terraform Manual Workflow
 
 on:
-  workflow_dispatch:  
+  workflow_dispatch:
+    inputs:
+      source_branch:
+        description: 'Branch to use for Terraform code'
+        required: true
+        default: 'main'
 
 jobs:
   terraform:
@@ -9,8 +14,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout selected branch code
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.source_branch }}
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v4
@@ -22,7 +29,6 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-south-1
 
-
       - name: Terraform Init
         run: terraform init
 
@@ -33,5 +39,5 @@ jobs:
         run: terraform plan
 
       # Uncomment below if you want to apply changes too
-      # - name: Terraform Apply
-      #   run: terraform apply -auto-approve
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
