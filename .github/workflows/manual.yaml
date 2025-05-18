@@ -19,12 +19,12 @@ jobs:
 
     steps:
       - name: Checkout selected branch code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v1
         with:
           ref: ${{ github.event.inputs.source_branch }}
 
       - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v4
+        uses: hashicorp/setup-terraform@v1
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
