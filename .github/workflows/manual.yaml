@@ -24,7 +24,7 @@ jobs:
           ref: ${{ github.event.inputs.source_branch }}
 
       - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v4
+        uses: hashicorp/setup-terraform@v2
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
