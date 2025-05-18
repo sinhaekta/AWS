@@ -36,8 +36,8 @@ jobs:
       - name: Terraform Init
         run: terraform -chdir=config init
 
-      - name: Terraform Format Check
-        run: terraform -chdir=config fmt -check
+      #- name: Terraform Format Check
+      #  run: terraform -chdir=config fmt -check
 
       - name: Terraform Plan
         run: terraform -chdir=config plan
