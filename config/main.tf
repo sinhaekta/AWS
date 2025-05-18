@@ -1,12 +1,12 @@
 provider "aws" {
-  region = "us-east-1"  # You can change this to your preferred region
+  region = var.aws_region
 }
 
-resource "aws_instance" "example" {
-  ami           = "ami-0c55b159cbfafe1f0"  # Amazon Linux 2 AMI (for us-east-1)
-  instance_type = "t2.micro"
-
-  tags = {
-    Name = "MyExampleInstance"
-  }
+module "ec2_instance" {
+  source        = "./modules/ec2"
+  instance_type = var.instance_type
+  ami_id        = var.ami_id
+  key_name      = var.key_name
+  subnet_id     = var.subnet_id
+  security_group_ids = var.security_group_ids
 }
